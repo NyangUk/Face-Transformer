@@ -1,2 +1,3 @@
 ms1m-retinaface-t1/
 *.pth
+*.bin
