@@ -16,7 +16,7 @@ All needed Packages are found in requirements.txt -> Simply install all packages
 pip install -r requirements.txt
 ```
 #### 1.2
-아래 명령어를 터미널에서 실행시킨 뒤 anaconda3/lib/python3.8/site-package/vit-pytorch/로 이동한다.
+아래 명령어를 터미널에서 실행시킨 뒤 anaconda3/lib/python3.8/site-package/vit-pytorch/로 이동한다.  
 `anaconda3의 부모 디렉토리는 존재할 수 있다 ex) /home/Desktop/anaconda3/lib/python3.8/site-package/vit-pytorch/`
 
 ```
@@ -89,4 +89,11 @@ python test.py --model ./results/ViT-P12S8_ms1m_cosface/Backbone_VITs_Epoch_2_Ba
   | XNorm          | 18.18016 | 18.59261 | 18.60741 | 18.45845 | 18.18016 | 18.63203 | 18.98047 |
   | Accuracy       | 0.99833  | 0.99533  | 0.95917  | 0.92550  | 0.74867  | 0.96186  | 0.97817  |
   | Best-Threshold | 1.58000  | 1.41100  | 1.60200  | 1.71000  | 1.60000  | 1.71000  | 1.66000  |
-
+  
+  
+  #### VITs 
+  |                | LFW      | SLLFW    | CALFW    | CPLFW    | TALFW    | CFP_FP   | AGEDB    |
+  |----------------|----------|----------|----------|----------|----------|----------|----------|
+  | XNorm          | 19.59875 | 19.56193 | 19.59231 | 19.37105 | 19.39723 | 19.34793 | 19.70942 |
+  | Accuracy       | 0.99800  | 0.99550  | 0.96183  | 0.93083  | 0.70133  | 0.96771  | 0.98050  |
+  | Best-Threshold | 1.55900  | 1.42900  | 1.66000  | 1.72800  | 1.57600  | 1.71000  | 1.67000  |
