@@ -79,7 +79,7 @@ def main(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', default='', help='training set directory')
-    parser.add_argument('--network', default='VITs',
+    parser.add_argument('--network', default='VIT',
                         help='training set directory')
     parser.add_argument('--target', default='lfw,talfw,sllfw,calfw,cplfw,cfp_fp,agedb_30',
                         help='')
