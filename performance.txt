@@ -1,3 +1,5 @@
+VIT
+
 [lfw]XNorm: 18.62154
 [lfw]Accuracy-Flip: 0.99833+-0.00197
 [lfw]Best-Threshold: 1.58000
@@ -26,4 +28,35 @@
 [agedb_30]Accuracy-Flip: 0.97817+-0.00709
 [agedb_30]Best-Threshold: 1.66000
 Average-Accuracy: 0.93815
+
+VITs
+[lfw]XNorm: 19.59875
+[lfw]Accuracy-Flip: 0.99800+-0.00256
+[lfw]Best-Threshold: 1.55900
+(12000, 512)
+[talfw]XNorm: 19.39723
+[talfw]Accuracy-Flip: 0.70133+-0.01824
+[talfw]Best-Threshold: 1.57600
+(12000, 512)
+[sllfw]XNorm: 19.56193
+[sllfw]Accuracy-Flip: 0.99550+-0.00358
+[sllfw]Best-Threshold: 1.42900
+(12000, 512)
+[calfw]XNorm: 19.59231
+[calfw]Accuracy-Flip: 0.96183+-0.00956
+[calfw]Best-Threshold: 1.66000
+(12000, 512)
+[cplfw]XNorm: 19.37105
+[cplfw]Accuracy-Flip: 0.93083+-0.00857
+[cplfw]Best-Threshold: 1.72800
+(14000, 512)
+[cfp_fp]XNorm: 19.34793
+[cfp_fp]Accuracy-Flip: 0.96771+-0.00850
+[cfp_fp]Best-Threshold: 1.71000
+(12000, 512)
+[agedb_30]XNorm: 19.70942
+[agedb_30]Accuracy-Flip: 0.98050+-0.00768
+[agedb_30]Best-Threshold: 1.67000
+Average-Accuracy: 0.93367
+
 
