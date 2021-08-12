@@ -82,5 +82,11 @@ python test.py --model ./results/ViT-P12S8_ms1m_cosface/Backbone_VITs_Epoch_2_Ba
 
 python test.py --model ./results/ViT-P12S8_ms1m_cosface/Backbone_VITs_Epoch_2_Batch_12000_Time_2021-03-17-04-05_checkpoint.pth --network VITs 
 ```
-
+### 5. performance of pretrained model 
+  #### VIT
+  |                | LFW      | SLLFW    | CALFW    | CPLFW    | TALFW    | CFP_FP   | AGEDB    |
+  |----------------|----------|----------|----------|----------|----------|----------|----------|
+  | XNorm          | 18.18016 | 18.59261 | 18.60741 | 18.45845 | 18.18016 | 18.63203 | 18.98047 |
+  | Accuracy       | 0.99833  | 0.99533  | 0.95917  | 0.92550  | 0.74867  | 0.96186  | 0.97817  |
+  | Best-Threshold | 1.58000  | 1.41100  | 1.60200  | 1.71000  | 1.60000  | 1.71000  | 1.66000  |
 
