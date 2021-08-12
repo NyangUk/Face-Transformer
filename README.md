@@ -10,12 +10,22 @@ Recently there has been great interests of Transformer not only in NLP but also 
 
 ### 1. Preparation
 The code is mainly adopted from [Vision Transformer](https://github.com/lucidrains/vit-pytorch), and [DeiT](https://github.com/facebookresearch/deit). In addition to PyTorch and torchvision, install [vit_pytorch](https://github.com/lucidrains/vit-pytorch) by [Phil Wang](https://github.com/lucidrains), and package [timm==0.3.2](https://github.com/rwightman/pytorch-image-models) by [Ross Wightman](https://github.com/rwightman). Sincerely appreciate for their contributions. 
+#### 1.1
 All needed Packages are found in requirements.txt -> Simply install all packages by:
 ```
 pip install -r requirements.txt
 ```
+#### 1.2
+아래 명령어를 터미널에서 실행시킨 뒤 anaconda3/lib/python3.8/site-package/vit-pytorch/로 이동한다.
+`anaconda3의 부모 디렉토리는 존재할 수 있다 ex) /home/Desktop/anaconda3/lib/python3.8/site-package/vit-pytorch/`
 
-Copy the files of folder "copy-to-vit_pytorch-path" to vit_pytorch path.
+```
+pip install vit_pytorch
+pip install timm==0.3.2
+```
+
+#### 1.3
+"copy-to-vit_pytorch-path" 디렉토리안에 있는 3가지 python file을 vit_pytorch 디렉토리오 옮긴다.
 ```
 .
 ├── __init__.py
