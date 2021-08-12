@@ -19,7 +19,6 @@ from IPython import embed
 from timm.scheduler import create_scheduler
 from timm.optim import create_optimizer
 
-
 def need_save(acc, highest_acc):
     do_save = False
     save_cnt = 0
@@ -39,15 +38,15 @@ def need_save(acc, highest_acc):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='for face verification')
-    parser.add_argument("-w", "--workers_id", help="gpu ids or cpu", default='cpu', type=str)
-    parser.add_argument("-e", "--epochs", help="training epochs", default=125, type=int)
-    parser.add_argument("-b", "--batch_size", help="batch_size", default=256, type=int)
-    parser.add_argument("-d", "--data_mode", help="use which database, [casia, vgg, ms1m, retina, ms1mr]",default='ms1m', type=str)
+    parser.add_argument("-w", "--workers_id", help="gpu ids or cpu", default="0,1", type=str)
+    parser.add_argument("-e", "--epochs", help="training epochs", default=30, type=int)
+    parser.add_argument("-b", "--batch_size", help="batch_size", default=512, type=int)
+    parser.add_argument("-d", "--data_mode", help="use which database, [casia, vgg, ms1m, retina, ms1mr]",default='retina', type=str)
     parser.add_argument("-n", "--net", help="which network, ['VIT','VITs']",default='VITs', type=str)
     parser.add_argument("-head", "--head", help="head type, ['Softmax', 'ArcFace', 'CosFace', 'SFaceLoss']", default='ArcFace', type=str)
-    parser.add_argument("-t", "--target", help="verification targets", default='lfw,talfw,calfw,cplfw,cfp_fp,agedb_30', type=str)
+    parser.add_argument("-t", "--target", help="verification targets", default='lfw', type=str) #talfw,calfw,cplfw,cfp_fp,agedb_30
     parser.add_argument("-r", "--resume", help="resume model", default='', type=str)
-    parser.add_argument('--outdir', help="output dir", default='', type=str)
+    parser.add_argument('--outdir', help="output dir", default='./results/vit', type=str)
 
     parser.add_argument('--opt', default='adamw', type=str, metavar='OPTIMIZER',
                         help='Optimizer (default: "adamw"')
