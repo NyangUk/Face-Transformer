@@ -17,7 +17,8 @@ def main(args):
     print(args)
     MULTI_GPU = False
     DEVICE = torch.device("cuda:0")
-    DATA_ROOT = '/raid/Data/ms1m-retinaface-t1/'
+    # change DATA_ROOT
+    DATA_ROOT = '/home/Desktop/Face-Transformer/ms1m-retinaface-t1/'
     with open(os.path.join(DATA_ROOT, 'property'), 'r') as f:
         NUM_CLASS, h, w = [int(i) for i in f.read().split(',')]
 
@@ -52,7 +53,7 @@ def main(args):
             emb_dropout=0.1
         )
 
-    model_root = args.model
+    model_root = '/home/leo/Desktop/Face-Transformer/Backbone_VIT_Epoch_2_Batch_20000_Time_2021-01-12-16-48_checkpoint.pth'
     model.load_state_dict(torch.load(model_root))
 
 
