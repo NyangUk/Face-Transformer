@@ -18,7 +18,7 @@ def main(args):
     MULTI_GPU = False
     DEVICE = torch.device("cuda:0")
     # change DATA_ROOT
-    DATA_ROOT = '/home/Desktop/Face-Transformer/ms1m-retinaface-t1/'
+    DATA_ROOT = '/home/leo/Desktop/Face-Transformer/ms1m-retinaface-t1/'
     with open(os.path.join(DATA_ROOT, 'property'), 'r') as f:
         NUM_CLASS, h, w = [int(i) for i in f.read().split(',')]
 
