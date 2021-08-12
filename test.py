@@ -21,7 +21,7 @@ def main(args):
     DATA_ROOT = '/home/leo/Desktop/Face-Transformer/ms1m-retinaface-t1/'
     with open(os.path.join(DATA_ROOT, 'property'), 'r') as f:
         NUM_CLASS, h, w = [int(i) for i in f.read().split(',')]
-
+    print(NUM_CLASS)
     if args.network == 'VIT' :
         model = ViT_face(
             image_size=112,
@@ -61,20 +61,20 @@ def main(args):
     w = torch.load(model_root)
     for x in w.keys():
         print(x, w[x].shape)
-    #embed()
-    TARGET = [i for i in args.target.split(',')]
-    vers = get_val_data('./eval/', TARGET)
-    acc = []
+    # #embed()
+    # TARGET = [i for i in args.target.split(',')]
+    # vers = get_val_data('./eval/', TARGET)
+    # acc = []
 
-    for ver in vers:
-        name, data_set, issame = ver
-        accuracy, std, xnorm, best_threshold, roc_curve = perform_val(MULTI_GPU, DEVICE, 512, args.batch_size,
-                                                                      model, data_set, issame)
-        print('[%s]XNorm: %1.5f' % (name, xnorm))
-        print('[%s]Accuracy-Flip: %1.5f+-%1.5f' % (name, accuracy, std))
-        print('[%s]Best-Threshold: %1.5f' % (name, best_threshold))
-        acc.append(accuracy)
-    print('Average-Accuracy: %1.5f' % (np.mean(acc)))
+    # for ver in vers:
+    #     name, data_set, issame = ver
+    #     accuracy, std, xnorm, best_threshold, roc_curve = perform_val(MULTI_GPU, DEVICE, 512, args.batch_size,
+    #                                                                   model, data_set, issame)
+    #     print('[%s]XNorm: %1.5f' % (name, xnorm))
+    #     print('[%s]Accuracy-Flip: %1.5f+-%1.5f' % (name, accuracy, std))
+    #     print('[%s]Best-Threshold: %1.5f' % (name, best_threshold))
+    #     acc.append(accuracy)
+    # print('Average-Accuracy: %1.5f' % (np.mean(acc)))
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
