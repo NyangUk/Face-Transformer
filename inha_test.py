@@ -1,79 +1,73 @@
-from __future__ import print_function, division
-
-import os
-import pickle
-import numpy as np
-import matplotlib.pyplot as plt
-import time
-import os
-import copy
-from tqdm import tqdm
-import math
-import pandas as pd
-
-from PIL import Image
-
-
-import cv2
-
-
 import torch
-from torch.utils.data import Dataset
 import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-import torch.nn.functional as F
-import torch.utils.model_zoo as model_zoo
-from torch.nn import Parameter
+import sys
+from vit_pytorch import ViT_face
+from vit_pytorch import ViTs_face
+from util.utils import get_val_data, perform_val
+from IPython import embed
+import sklearn
+import cv2
+import numpy as np
+from image_iter import FaceDataset
+import torch.utils.data as data
+import argparse
+import os
+import pandas as pd
 import torchvision
 from torchvision import datasets, models, transforms
-
-import cv2
 from PIL import Image
-import argparse
-from pathlib import Path
-import torch
-from config import get_config
-from mtcnn import MTCNN
-from Learner import face_learner
-from utils import load_facebank, draw_box_name, prepare_facebank
+import torch.nn.functional as F
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='for face verification')
-    parser.add_argument("-s", "--save", help="whether save",action="store_true")
-    parser.add_argument('-th','--threshold',help='threshold to decide identical faces',default=1.54, type=float)
-    parser.add_argument("-u", "--update", help="whether perform update the facebank",action="store_true")
-    parser.add_argument("-tta", "--tta", help="whether test time augmentation",action="store_true")
-    parser.add_argument("-c", "--score", help="whether show the confidence score",action="store_true")
-    args = parser.parse_args()
-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu") # 디바이스 설정
 
-    conf = get_config(False)
-    model_path = "2021-08-07-03-49_accuracy:0_step:346037_None.pth"
-
-    mtcnn = MTCNN()
-    print('mtcnn loaded')
-
-    learner = face_learner(conf, True)
-    learner.threshold = args.threshold
-    if conf.device.type == 'cpu':
-        learner.load_state(conf, model_path, True, True)
-    else:
-        learner.load_state(conf, model_path, True, True)
-    learner.model.eval()
-    print('learner loaded')
-
-    # model_ft = model.bottleneck_IR_SE()
-    # model_ft.load_state_dict(torch.load(''))
-    # model = mtcnn
+    network = "VIT"
+    NUM_CLASS = 93431
+    w,h =112,112
+    device = torch.device("cuda:0") # 디바이스 설정
+    model_root = '/home/leo/Desktop/Face-Transformer/Backbone_VIT_Epoch_2_Batch_20000_Time_2021-01-12-16-48_checkpoint.pth'
 
 
-    #model_file = torch.load("./model_save.pt")# 사전학습 모델 다운 후 알맞은 경로 지정
-    #model = ResNet(IRBlock, [3, 4, 6, 3], use_se=False, im_size=112).to(device) # 모델 정의
-    #model.load_state_dict(model_file) # 사전 학습된 모델의 weight 로 업데이트
-    learner.model.eval() # 모델을 평가 모드 설정
+    if network == 'VIT' :
+        model = ViT_face(
+            image_size=112,
+            patch_size=8,
+            loss_type='ArcFace',
+            GPU_ID= device,
+            num_class=NUM_CLASS,
+            dim=512,
+            depth=20,
+            heads=8,
+            mlp_dim=2048,
+            dropout=0.1,
+            emb_dropout=0.1
+        )
+    elif network == 'VITs':
+        model = ViTs_face(
+            loss_type='ArcFace',
+            GPU_ID=device,
+            num_class=NUM_CLASS,
+            image_size=112,
+            patch_size=8,
+            ac_patch_size=12,
+            pad=4,
+            dim=512,
+            depth=20,
+            heads=8,
+            mlp_dim=2048,
+            dropout=0.1,
+            emb_dropout=0.1
+        )
 
-    import pandas as pd
+    model.load_state_dict(torch.load(model_root))
+    model.to(device)
+    model.eval()
+
+
+    #debug
+    w = torch.load(model_root)
+    for x in w.keys():
+        print(x, w[x].shape)
+
     submission = pd.read_csv("/home/leo/Desktop/inha_challenge/inha_data/sample_submission.csv")
 
     left_test_paths = list()
@@ -111,7 +105,7 @@ if __name__ == '__main__':
             i = i * batch_size
             tmp_left_input = left_test[i:i+batch_size]
             #print(tmp_input.size()) # torch.Size([1000, 3, 112, 112])
-            left_infer_result = learner.model(tmp_left_input.to(device))
+            left_infer_result = model(tmp_left_input.to(device))
             #print(left_infer_result.size()) # torch.Size([1000, 512])
             left_infer_result_list.append(left_infer_result)
 
@@ -139,7 +133,7 @@ if __name__ == '__main__':
             i = i * batch_size
             tmp_right_input = right_test[i:i+batch_size]
             #print(tmp_input.size()) # torch.Size([1000, 3, 112, 112])
-            right_infer_result = learner.model(tmp_right_input.to(device))
+            right_infer_result = model(tmp_right_input.to(device))
             #print(left_infer_result.size()) # torch.Size([1000, 512])
             right_infer_result_list.append(right_infer_result)
 
@@ -156,4 +150,8 @@ if __name__ == '__main__':
     submission = pd.read_csv("/home/leo/Desktop/inha_challenge/inha_data/sample_submission.csv") 
     submission['answer'] = cosin_similarity.tolist()
     #submission.loc['answer'] = submission['answer']
-    submission.to_csv('/home/leo/Desktop/inha_challenge/inha_data/submission.csv', index=False)
+    submission.to_csv('/home/leo/Desktop/Face-Transformer/VIT_arc_submission.csv', index=False)
+
+
+
+
